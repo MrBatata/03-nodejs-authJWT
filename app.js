@@ -10,7 +10,10 @@ const port = 3000;
 app.use(express.static('public'));
 
 /** Express middlewares - data from forms */
-app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
+// Not sure about the 2 below...
+// app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 /** Morgan middleware */
 app.use(morgan('dev'));

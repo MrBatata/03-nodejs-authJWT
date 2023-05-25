@@ -9,11 +9,17 @@ const login_get = (req, res) => {
 };
 
 const signup_post = async (req, res) => {
-	res.send('new signup', {title: 'Post'});
+	console.log('done');
+	const user = req.body;
+	console.log(user.email, user.password);
+	res.redirect('/');
 };
 
 const login_post = async (req, res) => {
-	res.send('user login', {title: 'Post'});
+	console.log('done');
+	const user = req.body;
+	console.log(user.email, user.password);
+	res.redirect('/');
 };
 
 /** Export all middlewares to use them on authRoutes */

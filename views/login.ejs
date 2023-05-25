@@ -2,5 +2,14 @@
 <%- include('partials/nav'); -%>
 
 <h1>Login</h1>
+<div class="create-blog content">
+	<form action="/login" method="POST">
+		<label for="email"></label>
+		<input type="text" id="email" name="email" placeholder="your email" required>
+		<label for="password"></label>
+		<input type="password" id="password" name="password" placeholder="your password" required>
+		<button>Login</button>
+	</form>
+</div>
 
 <%- include('partials/footer'); -%>
