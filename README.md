@@ -10,7 +10,7 @@ Connect with MongoDB Atlas: https://www.youtube.com/watch?v=X88dsegH0-Y
 
 # dotenv package
 To get .env file secrets, on root directory. 
-Use in "app.js".
+Use in `app.js`.
 
 # validator package
 To easily validate data format (eg. email format).
