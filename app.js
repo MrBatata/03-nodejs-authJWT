@@ -24,8 +24,8 @@ app.set('view engine', 'ejs');
 
 /** MongoDB connection w/mongoose */
 const dbURI = process.env.MONGODB_URI
-const dbURIweb = process.env.MONGODB_URI_WEB;
-mongoose.connect(dbURIweb, { useNewUrlParser: true, useUnifiedTopology: true })
+const dbURIweb = process.env.MONGODB_URI_WEB; // This won't work with the database
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then((res) => {
 		app.listen(port);
 		console.log(`connected to http://localhost:${port}/`);

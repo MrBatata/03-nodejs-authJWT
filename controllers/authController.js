@@ -18,7 +18,7 @@ const signup_post = async (req, res) => {
 		// create method comes with the Schema
 		const user = await User.create(userInput);
 		// Need to send status and user as a json to the browser
-		res.status(201).json(user).redirect('/');
+		res.status(201).json(user);
 	} catch (error) {
 		console.log(error);
 		res.status(400).send('error, user not created')
