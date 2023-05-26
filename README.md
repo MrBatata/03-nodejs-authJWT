@@ -1,7 +1,7 @@
 # Net Ninja Course 
 > [Youtube video](https://www.youtube.com/watch?v=SnoAwLP1a-0&list=PL4cUxeGkcC9iqqESP8335DA5cRFp8loyp)
 
-## 5.
+## 5. Github codespace connection (incl. MongoDB) & Schema data validation (error handling)
 ### .devcontainer
 To use Github codespace online... 
 - Configure codespace: https://www.youtube.com/watch?v=ocPOHZJ21jE
@@ -18,5 +18,5 @@ Use in `app.js`.
 To easily validate data format (eg. email format).
 No need to use RegEx javascript vanilla.
 
-## 6. 
-### mongoose Hooks
+## 6. Mongoose Hooks
+### continue...
