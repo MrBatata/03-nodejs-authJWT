@@ -1,16 +1,19 @@
-const express = require('express');
 const dotenv = require('dotenv').config();
-const morgan = require('morgan');
+const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const authRoutes = require('./routes/authRoutes');
 
+/** Express start */
 const app = express();
 const port = 3000;
 
-/** Middleware */
+/** Public data Middleware */
 app.use(express.static('public'));
 
-/** Express middlewares - data from forms */
+/** Express middlewares 
+ * data from forms... to use "req.body"
+ */
 app.use(express.json());
 // Not sure about the 2 below...
 // app.use(express.urlencoded({ extended: false }));
@@ -35,6 +38,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 /** Routes */
 app.get('/', (req, res) => res.render('home', {title: 'Start'}));
 app.get('/smoothies', (req, res) => res.render('smoothies', {title: 'Choose your smoothie'}));
+
 /** Auth routes w/ methods */
 app.use(authRoutes);
 
