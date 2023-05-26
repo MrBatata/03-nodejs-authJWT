@@ -1,4 +1,5 @@
 const express = require('express');
+const dotenv = require('dotenv').config();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
@@ -22,9 +23,9 @@ app.use(morgan('dev'));
 app.set('view engine', 'ejs');
 
 /** MongoDB connection w/mongoose */
-const dbname = 'Cluster0';
-const dbURI = `mongodb+srv://user01:user01@cluster0.9j9lkcu.mongodb.net/${dbname}?retryWrites=true&w=majority`;
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+const dbURI = process.env.MONGODB_URI
+const dbURIweb = process.env.MONGODB_URI_WEB;
+mongoose.connect(dbURIweb, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then((res) => {
 		app.listen(port);
 		console.log(`connected to http://localhost:${port}/`);
