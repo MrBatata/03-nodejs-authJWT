@@ -24,7 +24,6 @@ const handleUserErrors = (err) => {
 	return errors;
 };
 
-
 /** Auth controller actions */
 const signup_get = (req, res) => {
 	res.render('signup', { title: 'Sign up' });
