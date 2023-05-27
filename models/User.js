@@ -31,22 +31,30 @@ userSchema.pre('save', function (next) {
 	console.log('user about to be created & saved is', this); // `this` is the complete User Schema to be created
 	next();
 });
-	
+
 /** mongoose hook "post"
  * fires a function after doc saved to db 
  */
 userSchema.post('save', function (doc, next) {
 	console.log('new user was created & saved', doc);
 	next();
-});	
+});
 
 /** mongoose hook: hashing password */
-userSchema.pre('save', async function(next) {
-	const salt = await bcrypt.genSalt();
+userSchema.pre('save', async function (next) {
+	const salt = await bcrypt.genSalt(10);
+	// It's important to pass a salt round value to this function for better security.
+	// The higher the round value, the more secure but slower the hashing process becomes.
+
 	// console.log(salt)
-	this.password = await bcrypt.hash(this.password, salt);
-	// console.log(this.password)
-	next();
+
+	try {
+		this.password = await bcrypt.hash(this.password, salt)
+		console.log('password successfully hashed')
+		next();
+	} catch (err) {
+		console.log('password not hashed, with error: ', err)
+	};
 });
 
 /** Connection with db specific collection

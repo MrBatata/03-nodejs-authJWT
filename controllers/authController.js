@@ -25,12 +25,13 @@ const handleUserErrors = (err) => {
 	return errors;
 };
 
-/** JSON web token*/
-const maxAge = 3 * 24 * 60 * 60; // time duration of token within server (in seconds)
+/** Handle JSON web token creation */
+const secretKeyJWT = process.env.JWT_SECRET_KEY;
+const maxAge = 3 * 24 * 60 * 60; // time duration of token within server (3 days in seconds)
 const createToken = (id) => {
-  return jwt.sign({ id }, 'secreto de batata', {
-    expiresIn: maxAge
-  }); // TODO: secreto debe estar oculto (process.env?)
+	return jwt.sign({ id }, secretKeyJWT, {
+		expiresIn: maxAge
+	});
 };
 
 /** Auth controller actions */
@@ -54,13 +55,13 @@ const signup_post = async (req, res) => {
 		const token = createToken(user._id);
 		// Need to send status, token as cookie and user (just id or email) to the browser
 		res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 }); // cookie duration in miliseconds
-		res.status(201).json({ user: user._id });
-	} 
+		res.status(201).json({ userid: user._id });
+	}
 	catch (err) {
 		// console.log(err);
 		const errors = handleUserErrors(err);
 		console.log(errors);
-		res.status(400).json(errors);
+		res.status(400).json({errors});
 	};
 };
 

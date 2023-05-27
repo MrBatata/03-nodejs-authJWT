@@ -1,5 +1,7 @@
 # Net Ninja Course 
-> [Youtube video](https://www.youtube.com/watch?v=SnoAwLP1a-0&list=PL4cUxeGkcC9iqqESP8335DA5cRFp8loyp)
+> [Youtube video](https://www.youtube.com/watch?v=SnoAwLP1a-0&list=PL4cUxeGkcC9iqqESP8335DA5cRFp8loyp).
+> [MongoDB Atlas](https://cloud.mongodb.com/).
+> [Git Guide](https://github.com/iamshaunjp/node-express-jwt-auth).
 
 ## 05. Github codespace connection (incl. MongoDB) & Schema data validation (error handling)
 ### .devcontainer
