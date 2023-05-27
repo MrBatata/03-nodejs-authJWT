@@ -26,3 +26,6 @@ Example: function after and before POST method for a route.
 `npm i bcrypt`
 
 ## 08. Auth views
+
+## 09. Cookies
+`npm i cookie-parser`
