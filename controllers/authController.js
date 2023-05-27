@@ -35,13 +35,14 @@ const login_get = (req, res) => {
 };
 
 const signup_post = async (req, res) => {
+	// console.log(req);
 	const userInput = req.body;
-	console.log('Data from input: email:', userInput.email, 'password: ', userInput.password);
+	console.log('Data from input: email: ', userInput.email, ' & password: ', userInput.password);
 
 	try {
 		// create method comes with the Schema
 		const user = await User.create(userInput);
-		console.log('user created');
+		console.log('user successfully created');
 		// Need to send status and user as a json to the browser
 		res.status(201).json(user);
 	} catch (err) {

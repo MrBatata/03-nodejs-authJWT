@@ -8,16 +8,20 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 const port = 3000;
 
-/** Public data Middleware */
+/** Express middleware: Public data */
 app.use(express.static('public'));
 
-/** Express middlewares 
- * data from forms... to use "req.body"
- */
-app.use(express.json());
-// Not sure about the 2 below...
-// app.use(express.urlencoded({ extended: false }));
+/** Express middleware: Handle URL-encoded form data
+ * Parsing URL-encoded form data 
+ * and making it available in req.body. 
+ * This middleware allows you to access form data submitted 
+ * from HTML forms using req.body, 
+ * even without explicitly using the body-parser package
+*/
 app.use(express.urlencoded({ extended: true }));
+
+/** Express middlewares: Handle all JSON data */
+app.use(express.json());
 
 /** Morgan middleware */
 app.use(morgan('dev'));
@@ -26,8 +30,8 @@ app.use(morgan('dev'));
 app.set('view engine', 'ejs');
 
 /** MongoDB connection w/mongoose */
-const dbURI = process.env.MONGODB_URI
-const dbURIweb = process.env.MONGODB_URI_WEB; // This won't work with the database
+const dbURI = process.env.MONGODB_URI;
+// const dbURIweb = process.env.MONGODB_URI_WEB; // This won't work with the database...
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 	.then((res) => {
 		app.listen(port);
