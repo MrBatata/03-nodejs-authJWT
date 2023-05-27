@@ -40,8 +40,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 	.catch((err) => console.log(err));
 
 /** Routes */
-app.get('/', (req, res) => res.render('home', {title: 'Start'}));
-app.get('/smoothies', (req, res) => res.render('smoothies', {title: 'Choose your smoothie'}));
+app.get('/', (req, res) => res.render('home', { title: 'Start' }));
+app.get('/smoothies', (req, res) => res.render('smoothies', { title: 'Choose your smoothie' }));
 
 /** Auth routes w/ methods */
 app.use(authRoutes);
@@ -49,4 +49,32 @@ app.use(authRoutes);
 /** 404 route */
 app.use((req, res) => {
 	res.status(404).render('404', { title: '404' });
+});
+
+/** Cookies introduction */
+const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+
+app.get('/set-cookies', (req, res) => {
+
+	// res.setHeader('Set-Cookie', 'newUser=true');
+
+	// same with express
+	res.cookie('newUser', false);
+	res.cookie('isEmployee', true, {
+		maxAge: 1000 * 60 * 60 * 24,
+		httpOnly: true
+	});
+
+	res.send('you got the cookies!');
+
+});
+
+app.get('/read-cookies', (req, res) => {
+
+	const cookies = req.cookies;
+	console.log(cookies.newUser);
+
+	res.json(cookies);
+
 });
