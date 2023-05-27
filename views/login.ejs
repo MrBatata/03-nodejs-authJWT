@@ -3,7 +3,7 @@
 
 <h1>Login</h1>
 <div class="create-blog content">
-	<form action="/login" method="POST">
+	<form action="/login">
 		<label for="email"></label>
 		<input type="text" id="email" name="email" placeholder="your email" required>
 		<label for="password"></label>
@@ -13,3 +13,17 @@
 </div>
 
 <%- include('partials/footer'); -%>
+
+<script>
+	const form = document.querySelector('form');
+  
+	form.addEventListener('submit', (e) => {
+	  e.preventDefault();
+  
+	  // get values
+	  const email = form.email.value;
+	  const password = form.password.value;
+  
+	  console.log(email, password);
+	});
+  </script>

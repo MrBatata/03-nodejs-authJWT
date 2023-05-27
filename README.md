@@ -1,7 +1,7 @@
 # Net Ninja Course 
 > [Youtube video](https://www.youtube.com/watch?v=SnoAwLP1a-0&list=PL4cUxeGkcC9iqqESP8335DA5cRFp8loyp)
 
-## 5. Github codespace connection (incl. MongoDB) & Schema data validation (error handling)
+## 05. Github codespace connection (incl. MongoDB) & Schema data validation (error handling)
 ### .devcontainer
 To use Github codespace online... 
 - Configure codespace: https://www.youtube.com/watch?v=ocPOHZJ21jE
@@ -18,9 +18,11 @@ Use in `app.js`.
 To easily validate data format (eg. email format).
 No need to use RegEx javascript vanilla.
 
-## 6. mongoose Schema Hooks
+## 06. mongoose Schema Hooks
 To execute a function, before and/or after a HTTP request.
 Example: function after and before POST method for a route.
 
-## 7. bcrypt: hashing a password
+## 07. bcrypt: hashing a password
 `npm i bcrypt`
+
+## 08. Auth views
