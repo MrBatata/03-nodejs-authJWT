@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const { isEmail } = require('validator');
+const bcrypt = require('bcrypt');
+
 
 /** mongoose Schema
  * Allows the use of User Schema in mongoDB
@@ -22,7 +24,7 @@ const userSchema = new Schema({
 	},
 }, { timestamps: true });
 
-/** Mongoose hook
+/** mongoose hooks "pre"
  * fires a function before doc saved to db 
  */
 userSchema.pre('save', function (next) {
@@ -30,13 +32,22 @@ userSchema.pre('save', function (next) {
 	next();
 });
 	
-/** Mongoose hook
+/** mongoose hook "post"
  * fires a function after doc saved to db 
  */
 userSchema.post('save', function (doc, next) {
 	console.log('new user was created & saved', doc);
 	next();
 });	
+
+/** mongoose hook: hashing password */
+userSchema.pre('save', async function(next) {
+	const salt = await bcrypt.genSalt();
+	// console.log(salt)
+	this.password = await bcrypt.hash(this.password, salt);
+	// console.log(this.password)
+	next();
+});
 
 /** Connection with db specific collection
  * mongoose will plurilize 'Blog' and look for 'blogs' db

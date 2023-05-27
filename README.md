@@ -18,5 +18,9 @@ Use in `app.js`.
 To easily validate data format (eg. email format).
 No need to use RegEx javascript vanilla.
 
-## 6. Mongoose Hooks
-### continue...
+## 6. mongoose Schema Hooks
+To execute a function, before and/or after a HTTP request.
+Example: function after and before POST method for a route.
+
+## 7. bcrypt: hashing a password
+`npm i bcrypt`
