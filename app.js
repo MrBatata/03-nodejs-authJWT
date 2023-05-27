@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const authRoutes = require('./routes/authRoutes');
+const cookieParser = require('cookie-parser');
 
 /** Express start */
 const app = express();
@@ -26,6 +27,9 @@ app.use(express.json());
 /** Morgan middleware */
 app.use(morgan('dev'));
 
+/** Cookie handler middleware */
+app.use(cookieParser());
+
 /** EJS view engine */
 app.set('view engine', 'ejs');
 
@@ -46,15 +50,9 @@ app.get('/smoothies', (req, res) => res.render('smoothies', { title: 'Choose you
 /** Auth routes w/ methods */
 app.use(authRoutes);
 
-/** 404 route */
-app.use((req, res) => {
-	res.status(404).render('404', { title: '404' });
-});
-
-/** Cookies introduction */
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
-
+/** Cookies introduction
+ * imports and middleware use
+ */
 app.get('/set-cookies', (req, res) => {
 
 	// res.setHeader('Set-Cookie', 'newUser=true');
@@ -67,7 +65,6 @@ app.get('/set-cookies', (req, res) => {
 	});
 
 	res.send('you got the cookies!');
-
 });
 
 app.get('/read-cookies', (req, res) => {
@@ -76,5 +73,9 @@ app.get('/read-cookies', (req, res) => {
 	console.log(cookies.newUser);
 
 	res.json(cookies);
+});
 
+/** 404 route */
+app.use((req, res) => {
+	res.status(404).render('404', { title: '404' });
 });

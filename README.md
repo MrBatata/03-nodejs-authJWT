@@ -23,9 +23,12 @@ To execute a function, before and/or after a HTTP request.
 Example: function after and before POST method for a route.
 
 ## 07. bcrypt: hashing a password
-`npm i bcrypt`
+Install package: `npm i bcrypt`.
 
 ## 08. Auth views
 
 ## 09. Cookies
-`npm i cookie-parser`
+Install package: `npm i cookie-parser`.
+Import and use middleware in app server: `app.use(cookieParser())`.
+
+## 10. 
