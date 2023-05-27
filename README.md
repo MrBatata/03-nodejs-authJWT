@@ -31,4 +31,7 @@ Install package: `npm i bcrypt`.
 Install package: `npm i cookie-parser`.
 Import and use middleware in app server: `app.use(cookieParser())`.
 
-## 10. 
+## 10. JWT
+Install package: `npm i jsonwebtoken`.
+Import: `const jwt = require('jsonwebtoken')`.
+

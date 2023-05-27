@@ -1,4 +1,5 @@
-const User = require('../models/User')
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 
 /** Handle User Schema errors */
 const handleUserErrors = (err) => {
@@ -24,6 +25,14 @@ const handleUserErrors = (err) => {
 	return errors;
 };
 
+/** JSON web token*/
+const maxAge = 3 * 24 * 60 * 60; // time duration of token within server (in seconds)
+const createToken = (id) => {
+  return jwt.sign({ id }, 'secreto de batata', {
+    expiresIn: maxAge
+  }); // TODO: secreto debe estar oculto (process.env?)
+};
+
 /** Auth controller actions */
 const signup_get = (req, res) => {
 	res.render('signup', { title: 'Sign up' });
@@ -42,9 +51,12 @@ const signup_post = async (req, res) => {
 		// create method comes with the Schema
 		const user = await User.create(userInput);
 		// console.log('user successfully created');
-		// Need to send status and user as a json to the browser
-		res.status(201).json(user);
-	} catch (err) {
+		const token = createToken(user._id);
+		// Need to send status, token as cookie and user (just id or email) to the browser
+		res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 }); // cookie duration in miliseconds
+		res.status(201).json({ user: user._id });
+	} 
+	catch (err) {
 		// console.log(err);
 		const errors = handleUserErrors(err);
 		console.log(errors);
