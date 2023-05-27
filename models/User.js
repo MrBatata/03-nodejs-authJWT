@@ -26,7 +26,7 @@ const userSchema = new Schema({
  * fires a function before doc saved to db 
  */
 userSchema.pre('save', function (next) {
-	console.log('user about to be created & saved', this);
+	console.log('user about to be created & saved is', this); // `this` is the complete User Schema to be created
 	next();
 });
 	
