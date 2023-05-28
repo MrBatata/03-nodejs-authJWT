@@ -88,7 +88,8 @@ const login_post = async (req, res) => {
 		res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 }); // cookie duration in miliseconds
 		res.status(201).json({ userid: user._id });
 	} catch (err) {
-		console.log(err);
+		// console.log(err);
+		const errors = handleUserErrors(err);
 		res.status(400).json({ errors });
 	};
 };
