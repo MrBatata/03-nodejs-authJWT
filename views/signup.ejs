@@ -57,7 +57,9 @@
 
 						if (data.userid) {
 							console.log('received id: ', data.userid);
-							location.assign('/');
+							// window.location.assign('/'); // navigate to a new URL while preserving the page history
+							// window.location.href = '/'; // replace the entire URL and perform a full page reload 
+							location.assign('/'); // window. is not strictly neccessary as it is the global object
 						};
 					}
 					catch (err) {
