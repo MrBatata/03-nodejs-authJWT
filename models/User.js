@@ -46,16 +46,30 @@ userSchema.pre('save', async function (next) {
 	// It's important to pass a salt round value to this function for better security.
 	// The higher the round value, the more secure but slower the hashing process becomes.
 
-	// console.log(salt)
+	// console.log(salt);
 
 	try {
-		this.password = await bcrypt.hash(this.password, salt)
-		console.log('password successfully hashed')
+		this.password = await bcrypt.hash(this.password, salt);
+		console.log('password successfully hashed');
 		next();
 	} catch (err) {
-		console.log('password not hashed, with error: ', err)
+		console.log('password not hashed, with error: ', err);
 	};
 });
+
+/** mongoose static method: to login user */
+userSchema.statics.login = async function (email, password) {
+	const user = await this.findOne({ email });
+	if (user) {
+		const auth = await bcrypt.compare(password, user.password);
+		console.log('user exists');
+		if (auth) {
+			return user;
+		};
+		throw Error('incorrect password');
+	};
+	throw Error('incorrect email');
+};
 
 /** Connection with db specific collection
  * mongoose will plurilize 'Blog' and look for 'blogs' db

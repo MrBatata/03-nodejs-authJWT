@@ -21,7 +21,6 @@ const handleUserErrors = (err) => {
 			errors[properties.path] = properties.message;
 		});
 	};
-
 	return errors;
 };
 
@@ -61,15 +60,26 @@ const signup_post = async (req, res) => {
 		// console.log(err);
 		const errors = handleUserErrors(err);
 		console.log(errors);
-		res.status(400).json({errors});
+		res.status(400).json({ errors });
 	};
 };
 
 const login_post = async (req, res) => {
-	console.log('done');
-	const user = req.body;
-	console.log(user.email, user.password);
-	res.redirect('/');
+	// console.log(req);
+	const userInput = req.body;
+	console.log('Data from input: email: ', userInput.email, ' & password: ', userInput.password);
+
+	try {
+		const user = await User.login(userInput.email, userInput.password);
+		console.log('user successfully logged in');
+		const token = createToken(user._id);
+		// Need to send status, token as cookie and user (just id or email) to the browser
+		res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 }); // cookie duration in miliseconds
+		res.status(201).json({ userid: user._id });
+	} catch (err) {
+		console.log(err);
+		res.status(400).json({}); // TODO: handle login errors
+	};
 };
 
 /** Export all middlewares to use them on authRoutes */
