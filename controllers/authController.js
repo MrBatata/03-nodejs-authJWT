@@ -25,12 +25,12 @@ const handleUserErrors = (err) => {
 	// login errors
 	if (err.message === 'incorrect email') {
 		errors.email = 'That email is not registered';
-	  }
-	
-	  // incorrect password
-	  if (err.message === 'incorrect password') {
+	}
+
+	// incorrect password
+	if (err.message === 'incorrect password') {
 		errors.password = 'That password is incorrect';
-	  }
+	}
 
 	return errors;
 };
@@ -89,8 +89,15 @@ const login_post = async (req, res) => {
 		res.status(201).json({ userid: user._id });
 	} catch (err) {
 		console.log(err);
-		res.status(400).json({errors});
+		res.status(400).json({ errors });
 	};
+};
+
+const logout_get = (req, res) => {
+	// not possible to delete cookie from browser
+	// so we update the jwt cookie for a dummy one and with a almost null duration (1 milisec)
+	res.cookie('jwt', '', { maxAge: 1 });
+	res.redirect('/');
 };
 
 /** Export all middlewares to use them on authRoutes */
@@ -98,5 +105,6 @@ module.exports = {
 	signup_get,
 	login_get,
 	signup_post,
-	login_post
+	login_post,
+	logout_get
 };

@@ -11,6 +11,7 @@ router.post('/signup', authController.signup_post);
 router.get('/login', authController.login_get);
 /** Authenticate a current user */
 router.post('/login', authController.login_post);
-/** TODO: Log out a current user */
+/** Log out a current user */
+router.get('/logout', authController.logout_get);
 
 module.exports = router;
