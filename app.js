@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
+const { requireAuth } = require('./middlewares/authMiddleware');
 
 /** Express start */
 const app = express();
@@ -43,9 +44,11 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 	})
 	.catch((err) => console.log(err));
 
-/** Routes */
+/** Routes
+ * for smoothies page, we should validate token auth
+ */
 app.get('/', (req, res) => res.render('home', { title: 'Start' }));
-app.get('/smoothies', (req, res) => res.render('smoothies', { title: 'Choose your smoothie' }));
+app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies', { title: 'Choose your smoothie' }));
 
 /** Auth routes w/ methods */
 app.use(authRoutes);
