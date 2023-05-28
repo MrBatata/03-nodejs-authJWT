@@ -16,14 +16,47 @@
 
 <script>
 	const form = document.querySelector('form');
-  
-	form.addEventListener('submit', (e) => {
-	  e.preventDefault();
-  
-	  // get values
-	  const email = form.email.value;
-	  const password = form.password.value;
-  
-	  console.log(email, password);
+	const emailerror = document.querySelector('.email.error');
+	const passworderror = document.querySelector('.password.error');
+
+	form.addEventListener('submit', async (e) => {
+		e.preventDefault();
+
+		// get values
+		const email = form.email.value;
+		const password = form.password.value;
+
+		// reset errors
+		emailerror.textContent = '';
+		passworderror.textContent = '';
+
+		try {
+			const response = await fetch('/signup', {
+				method: 'POST',
+				body: JSON.stringify({ email, password }),
+				headers: { 'Content-Type': 'application/json' }
+			});
+
+			// response will be either data.userid or data.errors (from signup_post middleware)
+			// .json() method comes with Fetch API that most browsers can process
+			const data = await response.json();
+			console.log('data: ', data);
+
+			if (data.errors) {
+				console.log('received errors: ', data.errors);
+				emailerror.textContent = data.errors.email;
+				passworderror.textContent = data.errors.password;
+			};
+
+			if (data.userid) {
+				console.log('received id: ', data.userid);
+				// window.location.assign('/'); // navigate to a new URL while preserving the page history
+				// window.location.href = '/'; // replace the entire URL and perform a full page reload 
+				location.assign('/'); // window. is not strictly neccessary as it is the global object
+			};
+		}
+		catch (err) {
+			console.log(err);
+		};
 	});
 </script>
