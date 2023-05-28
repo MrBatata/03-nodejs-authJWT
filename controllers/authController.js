@@ -6,13 +6,13 @@ const handleUserErrors = (err) => {
 	// console.log('err.message: ', err.message, 'err.code: ', err.code);
 	let errors = { email: '', password: '' };
 
-	// duplicate email error
+	// signup error duplicate email 
 	if (err.code === 11000) {
 		errors.email = 'that email is already registered';
 		return errors;
 	};
 
-	// validation errors
+	// signup errors validation
 	if (err.message.includes('User validation failed')) {
 		// console.log(err);
 		Object.values(err.errors).forEach(({ properties }) => {
@@ -21,6 +21,17 @@ const handleUserErrors = (err) => {
 			errors[properties.path] = properties.message;
 		});
 	};
+
+	// login errors
+	if (err.message === 'incorrect email') {
+		errors.email = 'That email is not registered';
+	  }
+	
+	  // incorrect password
+	  if (err.message === 'incorrect password') {
+		errors.password = 'That password is incorrect';
+	  }
+
 	return errors;
 };
 
@@ -78,7 +89,7 @@ const login_post = async (req, res) => {
 		res.status(201).json({ userid: user._id });
 	} catch (err) {
 		console.log(err);
-		res.status(400).json({}); // TODO: handle login errors
+		res.status(400).json({errors});
 	};
 };
 
