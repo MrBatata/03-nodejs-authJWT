@@ -52,7 +52,8 @@ app.get('/', (req, res) => res.render('home', { title: 'Start' }));
 app.get('/smoothies', requireAuth, (req, res) => res.render('smoothies', { title: 'Choose your smoothie' }));
 
 /** Auth routes w/ methods */
-app.use(authRoutes);
+// app.use('' ,authRoutes);
+app.use('', authRoutes);
 
 /** Cookies introduction
  * imports and middleware use
